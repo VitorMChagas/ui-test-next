@@ -19,9 +19,9 @@ export default function ThumbsDown({ style }: ThumbsDownProps) {
         <g
           id="Mobile"
           stroke="none"
-          stroke-width="1"
+          strokeWidth="1"
           fill="none"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         >
           <g
             id="Mobile---Home"
