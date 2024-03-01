@@ -11,9 +11,8 @@ export default function Header() {
         <Image
           src="/img/pope-francis.@2x.png"
           alt="Pope Francis Photo"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center top"
+          fill
+          style={{ objectFit: 'cover', objectPosition: 'center top' }}
           className="select-none"
         />
         <div className="w-screen max-h-[600px] min-w-[1100px] pb-20">
