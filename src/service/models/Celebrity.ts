@@ -1,10 +1,7 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose from 'mongoose'
 
-mongoose.connect(process.env.MONGODB_URI)
-mongoose.Promise = global.Promise
-
-const celebritySchema = new Schema({
-  _id: String,
+const celebritySchema = new mongoose.Schema({
+  id: Number,
   name: String,
   description: String,
   category: String,
@@ -18,4 +15,5 @@ const celebritySchema = new Schema({
 
 const Celebrity =
   mongoose.models.Celebrity || mongoose.model('Celebrity', celebritySchema)
+
 export default Celebrity
