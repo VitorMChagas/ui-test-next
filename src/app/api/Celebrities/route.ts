@@ -1,4 +1,4 @@
-import Celebrity from '@service/models/Celebrities'
+import Celebrity from '@service/models/Celebrity'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
