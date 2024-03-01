@@ -2,6 +2,7 @@ import Head from 'next/head'
 
 import Header from '@/components/header'
 import SpeakOutButton from '@components/speak-out-button'
+import CelebrityCard from '@components/celebrity-card'
 
 export default function Page() {
   return (
@@ -13,6 +14,9 @@ export default function Page() {
       </Head>
       <Header />
       <SpeakOutButton />
+      <div className="min-w-[1100px] h-[350px] px-[110px] py-10">
+        <CelebrityCard />
+      </div>
     </>
   )
 }
