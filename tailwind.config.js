@@ -19,6 +19,7 @@ module.exports = {
       letterSpacing: {
         tightest: '-.075em',
       },
+      // TODO: remove duplicated colors
       colors: {
         'thumbsbg-green': 'rgb(60 187 180 / 0.8)',
         'thumbsbg-green-hover': 'rgb(60 187 180 / 1)',
@@ -29,6 +30,7 @@ module.exports = {
         'dark-nav': 'rgb(0 0 0 / 0.8)',
         'dark-gray': 'rgb(70 70 70 / 1)',
         'light-gray': 'rgb(235 235 235 / 1)',
+        'vote-now-bg': 'rgb(48 48 48 / 0.6)',
       },
     },
   },
