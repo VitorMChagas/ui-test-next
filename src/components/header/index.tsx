@@ -1,40 +1,47 @@
 import ThumbButtons from '@components/header/thumb-buttons'
-import ClosingGauge from '@components/header/closing-gauge'
+import ClosingInBar from '@components/header/closing-in-bar'
 import Image from 'next/image'
 import NavBar from './navbar'
+import useDeviceSize from '@hooks/useDeviceSize'
 
 export default function Header() {
+  const { isDesktop, isTablet } = useDeviceSize()
+
   return (
     <>
       <NavBar />
-      <div className="relative pt-1">
+      <div className="relative pt-1 md:w-screen">
         <Image
-          src="/img/pope-francis.@2x.png"
+          src={`${isDesktop || isTablet ? '/img/pope-francis.@2x.png' : '/img/pope-francis.png'}`}
           alt="Pope Francis Photo"
           fill
-          style={{ objectFit: 'cover', objectPosition: 'center top' }}
-          className="select-none"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          priority
         />
-        <div className="w-screen max-h-[600px] min-w-[1100px] pb-20">
-          <div className="w-1/2 max-w-[600px] min-h-[468px] ml-[21.2rem] mt-40 backdrop-blur-lg bg-black/35 text-white">
-            <div className="px-6 py-8">
-              <p className="m-0 font-light whitespace-nowrap">
+        <div className="max-h-[600px] lg:min-w-[1100px] md:min-w-[768px] pb-20">
+          <div className="w-1/2 max-w-[600px] max-h-[468px] ml-[21.2rem] lg:mt-40 backdrop-blur-lg bg-black/35 text-white md:ml-8 md:mt-[110px] md:max-w-[368px] md:h-[321px]">
+            <div className="px-6 py-8 md:px-5 md:py-[26.5px]">
+              <p className="m-0 font-light whitespace-nowrap md:text-[14px]">
                 What's your opinion on
               </p>
-              <p className="m-0 text-[58px] leading-none">Pope Francis?</p>
-              <p className="max-w-[85%] text-xl font-light max-h-40 line-clamp-6 mt-8 mb-4">
+              <p className="m-0 text-[58px] leading-none md:text-[28px]">
+                Pope Francis?
+              </p>
+              <p className="max-w-[85%] text-xl font-light max-h-40 line-clamp-6 mt-8 mb-4 md:justify-center md:text-[17.5px] md:mt-3 md:leading-5 md:max-w-[325px]">
                 He’s talking tough on clergy sexual abuse, or is he just another
                 pervert protector? (thumbs down) or a true pedophile punishing
                 pontiff? (thumbs up)
               </p>
               <a
                 href="http://wikipedia.com"
-                className="flex font-light text-white underline"
+                className="flex font-light text-white underline md:text-[14px]"
               >
                 <svg
                   className="w-6 h-4 mr-2"
                   preserveAspectRatio="xMinYMin slice"
                   xmlns="http://www.w3.org/2000/svg"
+                  width={isDesktop ? '27' : '21px'}
+                  height={isDesktop ? '18' : '15px'}
                   viewBox="0 0 27 18"
                 >
                   <path
@@ -45,11 +52,13 @@ export default function Header() {
                 </svg>
                 More information
               </a>
-              <p className="mt-1 text-2xl font-bold">What's Your Veredict?</p>
+              <p className="mt-1 text-2xl font-bold md:text-xl">
+                What's Your Veredict?
+              </p>
             </div>
             <ThumbButtons />
           </div>
-          <ClosingGauge />
+          <ClosingInBar />
         </div>
       </div>
     </>
