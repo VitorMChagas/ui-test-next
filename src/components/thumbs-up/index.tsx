@@ -1,15 +1,16 @@
 interface ThumbsUpProps {
   style?: string
+  isListView?: boolean
 }
 
-export default function ThumbsUp({ style }: ThumbsUpProps) {
+export default function ThumbsUp({ style, isListView }: ThumbsUpProps) {
   return (
     <div
       className={`flex items-center justify-center ${style} fill-transparent w-7 h-7`}
     >
       <svg
-        width="16px"
-        height="16px"
+        width={isListView ? '22.5px' : '16px'}
+        height={isListView ? '22.5px' : '16px'}
         viewBox="0 0 16 16"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
