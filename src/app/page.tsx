@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Header from '@/components/header'
-import SpeakOutButton from '@components/speak-out-button'
+import SpeakOutBanner from '@components/speak-out-banner'
 import CelebrityList from '@components/celebrity-list'
 import ViewDropdown from '@components/view-dropdown'
 import CelebrityCard from '@components/celebrity-card'
@@ -16,7 +16,7 @@ export default function Page() {
   return (
     <>
       <Header />
-      <SpeakOutButton />
+      <SpeakOutBanner />
       <div className="flex max-w-[1100px] justify-between mx-auto my-3 items-center px-1">
         <p className="text-[--color-dark-gray] font-light text-[45px]">
           Previous Rulings
@@ -26,9 +26,9 @@ export default function Page() {
           handleSelectedOption={handleSelectedOption}
         />
       </div>
-      <div className="min-w-[1100px] h-[350px] flex justify-center">
+      {/* <div className="min-w-[1100px] h-[350px] flex justify-center">
         {selectedOption === 'Grid' ? <CelebrityCard /> : <CelebrityList />}
-      </div>
+      </div> */}
     </>
   )
 }
