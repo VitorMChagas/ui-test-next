@@ -13,14 +13,8 @@ export const useCelebrities = (): HooksReturn => {
     fetch('http://localhost:3000/api/celebrities')
       .then((res) => res.json())
       .then((data) => {
-        setCelebrities(
-          data.celebrities[0].data.map(
-            (celebrity: string[], index: number) => ({
-              _id: index + 1,
-              ...celebrity,
-            }),
-          ),
-        )
+        console.log(data)
+        setCelebrities(data.celebrities[0].data)
       })
       .catch((error) => {
         console.error('Error fetching data:', error)
