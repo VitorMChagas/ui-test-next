@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Celebrity } from './types'
 
 interface HooksReturn {
-  celebrities?: Celebrity[]
-  setCelebrities?: string
+  celebrities: Celebrity[]
+  setCelebrities: Dispatch<SetStateAction<Celebrity[]>>
 }
 
 export const useCelebrities = (): HooksReturn => {
@@ -14,7 +14,7 @@ export const useCelebrities = (): HooksReturn => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
-        setCelebrities(data.celebrities[0].data)
+        setCelebrities(data.celebrities)
       })
       .catch((error) => {
         console.error('Error fetching data:', error)
@@ -23,5 +23,6 @@ export const useCelebrities = (): HooksReturn => {
 
   return {
     celebrities,
+    setCelebrities,
   }
 }
