@@ -21,8 +21,8 @@ export default function Page() {
     <>
       <Header />
       <SpeakOutBanner />
-      <div className="flex max-w-[1100px] justify-between mx-auto my-3 items-center px-1 md:px-6 md:py-">
-        <p className="text-[--color-dark-gray] font-light text-[24px] lg:text-[45px] md:text-[24px]">
+      <div className="flex lg:max-w-[1100px] justify-between mx-auto my-3 items-center lg:px-1 px-6">
+        <p className="text-[--color-dark-gray] font-light text-[24px] lg:text-[45px]">
           Previous Rulings
         </p>
         {isMobile && (
@@ -32,8 +32,8 @@ export default function Page() {
           />
         )}
       </div>
-      {!isMobile && (
-        <div className="max-w-[640px] lg:max-w-[1100px] h-[350px] flex justify-center">
+      {isMobile && (
+        <div className="max-w-[800px] lg:max-w-[1100px] mx-auto flex justify-center pt-5">
           {selectedOption === 'Grid' ? <CelebrityCard /> : <CelebrityList />}
         </div>
       )}
