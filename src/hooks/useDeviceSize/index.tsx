@@ -1,9 +1,9 @@
-import { useMediaQuery } from 'react-responsive'
+import useMedia from 'use-media'
 
 export default function useDeviceSize() {
-  const isDesktop = useMediaQuery({ minWidth: 1024 })
-  const isMobile = useMediaQuery({ minWidth: 640 })
-  const isTablet = useMediaQuery({ minWidth: 768 })
+  const isDesktop = useMedia({ minWidth: 1024 })
+  const isTablet = useMedia({ minWidth: 768 })
+  const isMobile = useMedia({ minWidth: 640 })
 
-  return { isDesktop, isMobile, isTablet }
+  return { isDesktop, isTablet, isMobile }
 }
