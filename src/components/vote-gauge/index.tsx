@@ -28,24 +28,26 @@ export default function VoteGauge({
   return (
     <>
       <div
-        className={isListView ? 'absolute bottom-0 h-[54px]' : 'h-[35px]'}
+        className={
+          isListView ? 'absolute bottom-0 lg:h-[54px] h-[32px]' : 'h-[35px]'
+        }
         style={defaultStyle}
       ></div>
       <div className="relative flex items-end">
         <div
-          className={`justify-between flex absolute px-1 ${isListView ? 'w-[1100px] text-[27px] -bottom-[55px]' : 'w-[350px]'}`}
+          className={`justify-between flex absolute px-1 ${isListView ? 'lg:w-[1100px] lg:text-[27px] lg:-bottom-[55px] w-[723px] text-[18px] -bottom-[40px]' : 'w-[350px]'}`}
         >
           <div
-            className={`flex items-baseline justify-between ${isListView ? 'w-[110px] ml-[10px]' : ''} `}
+            className={`flex items-baseline justify-between ${isListView ? 'lg:w-[110px] lg:ml-[10px] w-[80px] ml-[5px] ' : ''} `}
           >
-            <ThumbsUp style={thumbStyle} isListView={isListView} />
+            <ThumbsUp thumbStyle={thumbStyle} isListView={isListView} />
             {positivePercentage.toFixed(1)}%
           </div>
           <div
-            className={`flex items-baseline justify-between ${isListView ? 'w-[110px] ml-[10px]' : ''}`}
+            className={`flex items-baseline justify-between ${isListView ? 'lg:w-[110px] lg:ml-[10px] w-[80px] ml-[5px]' : ''}`}
           >
             {negativePercentage.toFixed(1)}%
-            <ThumbsDown style={thumbStyle} isListView={isListView} />
+            <ThumbsDown thumbStyle={thumbStyle} isListView={isListView} />
           </div>
         </div>
       </div>
