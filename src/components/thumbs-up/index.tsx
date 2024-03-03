@@ -1,12 +1,12 @@
 interface ThumbsUpProps {
-  style?: string
+  thumbStyle?: string
   isListView?: boolean
 }
 
-export default function ThumbsUp({ style, isListView }: ThumbsUpProps) {
+export default function ThumbsUp({ thumbStyle, isListView }: ThumbsUpProps) {
   return (
     <div
-      className={`flex items-center justify-center ${style} fill-transparent w-7 h-7`}
+      className={`flex items-center justify-center ${thumbStyle} fill-transparent w-7 h-7`}
     >
       <svg
         width={isListView ? '22.5px' : '16px'}
@@ -14,6 +14,7 @@ export default function ThumbsUp({ style, isListView }: ThumbsUpProps) {
         viewBox="0 0 16 16"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
+        className="w-[18px] h-[18px]"
       >
         <title>6262761E-DD8C-4B97-A5F0-DAD841A64E21</title>
         <desc>Created with sketchtool.</desc>

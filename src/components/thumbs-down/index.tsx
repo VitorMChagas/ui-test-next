@@ -1,12 +1,15 @@
 interface ThumbsDownProps {
-  style?: string
+  thumbStyle?: string
   isListView?: boolean
 }
 
-export default function ThumbsDown({ style, isListView }: ThumbsDownProps) {
+export default function ThumbsDown({
+  thumbStyle,
+  isListView,
+}: ThumbsDownProps) {
   return (
     <div
-      className={`flex items-center justify-center ${style} fill-transparent w-7 h-7`}
+      className={`flex items-center justify-center ${thumbStyle} fill-transparent w-7 h-7`}
     >
       <svg
         width={isListView ? '22.5px' : '16px'}
@@ -14,6 +17,7 @@ export default function ThumbsDown({ style, isListView }: ThumbsDownProps) {
         viewBox="0 0 16 16"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
+        className="md:w-[18px] md:h-[18px]"
       >
         <title>0D3137C2-9DDC-4124-9A31-801057B1DD1F</title>
         <desc>Created with sketchtool.</desc>
