@@ -19,17 +19,17 @@ export default function CelebrityCard() {
   const { celebrities } = useCelebrities()
   const { isMobile, isTablet, isDesktop } = useDeviceSize()
 
-  const handleVote = async (_id, type) => {
+  const handleVote = async (_id, vote, name) => {
     try {
       // Convert the _id to string
-      const celebrityId = String(_id)
+      const celebrityId = '65e1241269e2d81a339e1c75'
 
       const response = await fetch('/api/votes/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ celebrityId, type }), // Use celebrityId instead of _id
+        body: JSON.stringify({ celebrityId, vote, name }),
       })
 
       if (response.ok) {
@@ -143,10 +143,18 @@ export default function CelebrityCard() {
                   &nbsp;ago in {celebrity.category}
                 </p>
                 <div className="flex justify-between w-[190px] self-end mr-8 mb-3">
-                  <button onClick={() => handleVote(celebrity._id, 'positive')}>
+                  <button
+                    onClick={() =>
+                      handleVote(celebrity._id, 'positive', celebrity.name)
+                    }
+                  >
                     <ThumbsUp thumbStyle="bg-thumbsbg-green-hover" />
                   </button>
-                  <button onClick={() => handleVote(celebrity._id, 'negative')}>
+                  <button
+                    onClick={() =>
+                      handleVote(celebrity._id, 'negative', celebrity.name)
+                    }
+                  >
                     <ThumbsDown thumbStyle="bg-thumbsbg-yellow-hover" />
                   </button>
                   <button className="w-[107px] h-[38px] border border-s-white bg-vote-now-bg text-[15px]">
