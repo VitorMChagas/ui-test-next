@@ -1,10 +1,9 @@
 import Celebrity from '@service/models/Celebrity'
-import connectToDatabase from '@service/utils/dbConnect'
 import { NextResponse } from 'next/server'
+import connectToDatabase from '@service/utils/dbConnect'
 
 export async function GET() {
   await connectToDatabase()
-
   try {
     const celebrities = await Celebrity.find()
     return NextResponse.json({ celebrities }, { status: 200 })

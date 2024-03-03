@@ -1,17 +1,18 @@
 import mongoose from 'mongoose'
 
-const celebritySchema = new mongoose.Schema({
-  id: Number,
-  name: String,
-  description: String,
-  category: String,
-  picture: String,
-  lastUpdated: String,
-  votes: {
-    positive: Number,
-    negative: Number,
+const celebritySchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    description: String,
+    category: String,
+    picture: String,
+    votes: {
+      positive: Number,
+      negative: Number,
+    },
   },
-})
+  { collection: 'celebrities' },
+)
 
 const Celebrity =
   mongoose.models.Celebrity || mongoose.model('Celebrity', celebritySchema)
