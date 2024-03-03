@@ -10,17 +10,17 @@ export default function Header() {
   return (
     <>
       <NavBar />
-      <div className="relative pt-1 min-w-[375px] h-[418px] md:min-h-[460px] lg:min-h-700px">
+      <div className="relative pt-1 min-w-[375px] h-[418px] md:min-h-[460px] lg:min-h-[700px] ">
         <Image
           src={`${isDesktop || isTablet ? '/img/pope-francis.@2x.png' : '/img/pope-francis.png'}`}
           alt="Pope Francis Photo"
           fill
           className="absolute"
-          style={{ objectFit: 'cover', objectPosition: 'top' }}
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
           priority
         />
         <div className="max-h-[600px] md:min-w-[768px]">
-          <div className="w-[204px] h-[292px] mt-[70px] ml-3 backdrop-blur-lg bg-black/35 text-white relative md:ml-5 md:mt-[70px] md:min-w-[368px] md:h-[321px] lg:left-[14%] lg:w-1/2 lg:min-w-[600px] lg:h-[469px] lg:mt-10 lg:mx-0">
+          <div className="w-[204px] h-[292px] mt-[70px] ml-3 backdrop-blur-lg bg-black/35 text-white relative md:ml-5 md:mt-[70px] md:min-w-[368px] md:h-[321px] lg:left-[14%] lg:w-[552px] lg:h-[474px] lg:mt-20 lg:mx-0">
             <div className="px-3 py-3 lg:px-6 lg:py-8 md:px-5 md:py-[26.5px]">
               <p className="text-[12px] m-0 font-light whitespace-nowrap md:text-[14px] lg:text-base">
                 What's your opinion on
