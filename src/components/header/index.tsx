@@ -10,16 +10,17 @@ export default function Header() {
   return (
     <>
       <NavBar />
-      <div className="relative pt-1 w-[375px] h-[418px] md:w-screen">
+      <div className="relative pt-1 min-w-[375px] h-[418px] md:min-h-[460px] lg:min-h-700px">
         <Image
           src={`${isDesktop || isTablet ? '/img/pope-francis.@2x.png' : '/img/pope-francis.png'}`}
           alt="Pope Francis Photo"
           fill
-          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          className="absolute"
+          style={{ objectFit: 'cover', objectPosition: 'top' }}
           priority
         />
-        <div className="max-h-[600px] lg:min-w-[1100px] md:min-w-[768px] lg:pb-20">
-          <div className="w-[204px] h-[292px] mt-[70px] ml-3 backdrop-blur-lg bg-black/35 text-white lg:max-w-[600px] lg:max-h-[468px] lg:ml-[21.2rem] lg:mt-40 md:ml-8 md:mt-[110px] md:max-w-[368px] md:h-[321px]">
+        <div className="max-h-[600px] md:min-w-[768px]">
+          <div className="w-[204px] h-[292px] mt-[70px] ml-3 backdrop-blur-lg bg-black/35 text-white relative md:ml-5 md:mt-[70px] md:min-w-[368px] md:h-[321px] lg:left-[14%] lg:w-1/2 lg:min-w-[600px] lg:h-[469px] lg:mt-10 lg:mx-0">
             <div className="px-3 py-3 lg:px-6 lg:py-8 md:px-5 md:py-[26.5px]">
               <p className="text-[12px] m-0 font-light whitespace-nowrap md:text-[14px] lg:text-base">
                 What's your opinion on
@@ -27,7 +28,7 @@ export default function Header() {
               <p className="m-0 text-[36px] md:text-[28px] lg:text-[58px] leading-none">
                 Pope Francis?
               </p>
-              <p className="w-[180px] lg:max-w-[85%] text-[15px] leading-4 my-2 lg:text-xl font-light max-h-40 line-clamp-6 lg:mt-8 lg:mb-4 md:justify-center md:text-[17.5px] md:mt-3 md:leading-5 md:max-w-[325px]">
+              <p className="w-[180px] lg:w-full text-[15px] leading-4 my-2  font-light max-h-40 line-clamp-6 md:justify-center md:text-[17.5px] md:mt-3 md:leading-5 md:min-w-[325px] md:pb-2 lg:mt-4 lg:mb-4 lg:text-[24px] lg:leading-7 lg:max-w-[85%]">
                 He’s talking tough on clergy sexual abuse, or is he just another
                 pervert protector? (thumbs down) or a true pedophile punishing
                 pontiff? (thumbs up)
@@ -35,7 +36,7 @@ export default function Header() {
               {isMobile && (
                 <a
                   href="http://wikipedia.com"
-                  className="flex font-light text-white underline md:text-[14px]"
+                  className="flex font-light text-white md:text-[14px] lg:text-[18px] no-underline"
                 >
                   <svg
                     className="w-6 h-4 mr-2"
@@ -54,7 +55,7 @@ export default function Header() {
                   More information
                 </a>
               )}
-              <p className="mt-1 text-[12px] font-bold md:text-xl lg:text-2xl">
+              <p className="mt-1 text-[12px] font-bold md:mt-3 md:text-xl lg:text-2xl">
                 What's Your Veredict?
               </p>
             </div>
