@@ -1,45 +1,68 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { formatDistanceStrict } from 'date-fns/formatDistanceStrict'
 import Image from 'next/image'
 import ThumbsUp from '@components/thumbs-up'
 import ThumbsDown from '@components/thumbs-down'
 import VoteGauge from '@components/vote-gauge'
+import useDeviceSize from '@hooks/useDeviceSize'
 import { useCelebrities } from '@hooks/useCelebrities'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/css'
-import useDeviceSize from '@hooks/useDeviceSize'
 
 interface HandleVoteType {
   id: number
-  type: string
+  type: 'positive' | 'negative'
 }
 
 export default function CelebrityCard() {
-  const { celebrities } = useCelebrities()
+  const [votedCelebrity, setVotedCelebrity] = useState<number>()
+  const [hasVoted, setHasVoted] = useState<boolean>()
+  const [voteType, setVoteType] = useState('')
+  const { celebrities, setCelebrities } = useCelebrities()
   const { isMobile, isTablet, isDesktop } = useDeviceSize()
 
-  const handleVote = async (_id, vote, name) => {
-    try {
-      // Convert the _id to string
-      const celebrityId = '65e1241269e2d81a339e1c75'
+  const celebrityHasBeenVoted = (id: number) => votedCelebrity === id
 
-      const response = await fetch('/api/votes/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ celebrityId, vote, name }),
-      })
+  const handleVote = async ({ id, type }: HandleVoteType) => {
+    if (!hasVoted) {
+      try {
+        const response = await fetch('/api/votes/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ celebrityId: id, vote: type }),
+        })
 
-      if (response.ok) {
-        const data = await response.json()
-        console.log('Vote registration success:', data)
-      } else {
-        console.error('Vote registration error:', response.statusText)
+        if (response.ok) {
+          setHasVoted(true)
+          setVotedCelebrity(id)
+          const data = await response.json()
+          setCelebrities((prevCelebrity) => {
+            return prevCelebrity.map((celebrity) => {
+              if (celebrity.id === id) {
+                return {
+                  ...celebrity,
+                  votes: {
+                    ...celebrity.votes,
+                    [type]: celebrity.votes[type] + 1,
+                  },
+                }
+              }
+              return celebrity
+            })
+          })
+          console.log('Vote registration success:', data)
+        } else {
+          console.error('Vote registration error:', response.statusText)
+        }
+      } catch (error) {
+        console.error('Vote registration error:', error)
       }
-    } catch (error) {
-      console.error('Vote registration error:', error)
+    } else {
+      setVoteType('')
+      setHasVoted(false)
     }
   }
 
@@ -48,8 +71,8 @@ export default function CelebrityCard() {
       <div className="flex flex-wrap w-[375px] pl-2 md:w-[640px] lg:w-[1100px]">
         {!isMobile && (
           <Swiper slidesPerView={1} centeredSlides spaceBetween={-12}>
-            {celebrities?.map((celebrity) => (
-              <SwiperSlide key={celebrity._id}>
+            {celebrities.map((celebrity) => (
+              <SwiperSlide key={celebrity.id}>
                 <div className="w-[348px] h-[348px] text-white mb-10 flex flex-col justify-end">
                   <Fragment>
                     <Image
@@ -75,25 +98,45 @@ export default function CelebrityCard() {
                       {celebrity.description}
                     </p>
                     <p className="self-end pb-4 pr-5 text-xs font-bold">
-                      {formatDistanceStrict(
-                        new Date(celebrity.lastUpdated),
-                        new Date(),
-                      )}
-                      &nbsp;ago in {celebrity.category}
+                      {hasVoted
+                        ? 'Thank you for your vote!'
+                        : `${formatDistanceStrict(
+                            new Date(celebrity.lastUpdated),
+                            new Date(),
+                          )} ago in ${celebrity.category}`}
                     </p>
                     <div className="flex justify-between w-[190px] self-end mr-8 mb-3">
+                      {hasVoted ? (
+                        ''
+                      ) : (
+                        <>
+                          <button
+                            className="focus:border-white focus:border-[3px]"
+                            onClick={() => setVoteType('positive')}
+                          >
+                            <ThumbsUp thumbStyle="bg-thumbsbg-green-hover" />
+                          </button>
+                          <button
+                            className="focus:border-white focus:border-[3px]"
+                            onClick={() => setVoteType('negative')}
+                          >
+                            <ThumbsDown thumbStyle="bg-thumbsbg-yellow-hover" />
+                          </button>
+                        </>
+                      )}
+
                       <button
-                        onClick={() => handleVote(celebrity._id, 'positive')}
+                        className="w-[107px] h-[38px] border border-s-white bg-vote-now-bg text-[15px] disabled"
+                        onClick={async () => {
+                          handleVote({
+                            id: celebrity.id,
+                            type: voteType as 'positive' | 'negative',
+                          })
+                        }}
                       >
-                        <ThumbsUp thumbStyle="bg-thumbsbg-green-hover" />
-                      </button>
-                      <button
-                        onClick={() => handleVote(celebrity._id, 'negative')}
-                      >
-                        <ThumbsDown thumbStyle="bg-thumbsbg-yellow-hover" />
-                      </button>
-                      <button className="w-[107px] h-[38px] border border-s-white bg-vote-now-bg text-[15px]">
-                        Vote Now
+                        {hasVoted && celebrityHasBeenVoted(celebrity.id)
+                          ? 'Vote Again'
+                          : 'Vote Now'}
                       </button>
                     </div>
                     <VoteGauge
@@ -110,9 +153,9 @@ export default function CelebrityCard() {
 
       <div className="grid grid-cols-2 min-w-[800px] justify-items-center w-full mx-auto relative lg:grid-cols-3 lg:min-w-[1100px]">
         {(isDesktop || isTablet) &&
-          celebrities?.map((celebrity) => (
+          celebrities.map((celebrity) => (
             <div className="w-[348px] h-[348px] text-white mb-10 flex flex-col justify-end">
-              <Fragment key={celebrity._id}>
+              <Fragment key={celebrity.id}>
                 <Image
                   src={`/img/${celebrity.picture}`}
                   alt={celebrity.name}
@@ -122,7 +165,7 @@ export default function CelebrityCard() {
                   className="absolute -z-10"
                 />
                 <div className="flex max-h-[100px] flex-wrap items-center">
-                  {celebrity.votes.positive > celebrity.votes.negative ? (
+                  {celebrity?.votes.positive > celebrity?.votes?.negative ? (
                     <ThumbsUp thumbStyle="bg-thumbsbg-green" />
                   ) : (
                     <ThumbsDown thumbStyle="bg-thumbsbg-yellow" />
@@ -136,29 +179,47 @@ export default function CelebrityCard() {
                   {celebrity.description}
                 </p>
                 <p className="self-end pb-4 pr-5 text-xs font-bold">
-                  {formatDistanceStrict(
-                    new Date(celebrity.lastUpdated),
-                    new Date(),
-                  )}
-                  &nbsp;ago in {celebrity.category}
+                  {hasVoted && celebrityHasBeenVoted(celebrity.id)
+                    ? 'Thank you for your vote!'
+                    : `${formatDistanceStrict(
+                        new Date(celebrity.lastUpdated),
+                        new Date(),
+                      )} ago in ${celebrity.category}`}
                 </p>
-                <div className="flex justify-between w-[190px] self-end mr-8 mb-3">
+                <div
+                  className={`flex justify-between ${hasVoted && celebrityHasBeenVoted(celebrity.id) ? '' : 'w-[190px]'}  self-end mr-8 mb-3`}
+                >
+                  {hasVoted && celebrityHasBeenVoted(celebrity.id) ? (
+                    ''
+                  ) : (
+                    <>
+                      <button
+                        className="focus:border-white focus:border-[3px]"
+                        onClick={() => setVoteType('positive')}
+                      >
+                        <ThumbsUp thumbStyle="bg-thumbsbg-green-hover" />
+                      </button>
+                      <button
+                        className="focus:border-white focus:border-[3px]"
+                        onClick={() => setVoteType('negative')}
+                      >
+                        <ThumbsDown thumbStyle="bg-thumbsbg-yellow-hover" />
+                      </button>
+                    </>
+                  )}
                   <button
-                    onClick={() =>
-                      handleVote(celebrity._id, 'positive', celebrity.name)
-                    }
+                    className="h-[38px] w-[107px] border border-s-white bg-vote-now-bg text-[15px]"
+                    disabled={!voteType && votedCelebrity !== celebrity.id}
+                    onClick={async () => {
+                      handleVote({
+                        id: celebrity.id,
+                        type: voteType as 'positive' | 'negative',
+                      })
+                    }}
                   >
-                    <ThumbsUp thumbStyle="bg-thumbsbg-green-hover" />
-                  </button>
-                  <button
-                    onClick={() =>
-                      handleVote(celebrity._id, 'negative', celebrity.name)
-                    }
-                  >
-                    <ThumbsDown thumbStyle="bg-thumbsbg-yellow-hover" />
-                  </button>
-                  <button className="w-[107px] h-[38px] border border-s-white bg-vote-now-bg text-[15px]">
-                    Vote Now
+                    {hasVoted && celebrityHasBeenVoted(celebrity.id)
+                      ? 'Vote Again'
+                      : 'Vote Now'}
                   </button>
                 </div>
                 <VoteGauge
