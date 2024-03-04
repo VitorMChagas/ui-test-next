@@ -1,17 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import useDeviceSize from '@hooks/useDeviceSize'
 import Header from '@/components/header'
 import SpeakOutBanner from '@components/speak-out-banner'
 import CelebrityList from '@components/celebrity-list'
 import ViewDropdown from '@components/view-dropdown'
 import CelebrityCard from '@components/celebrity-card'
 import Footer from '@components/footer'
+import useIsMobile from '@hooks/useIsMobile'
 
 export default function Page() {
   const [selectedOption, setSelectedOption] = useState('Grid')
-  const { isMobile } = useDeviceSize()
+  const isMobile = useIsMobile()
 
   function handleSelectedOption(option: string) {
     setSelectedOption(option)
@@ -25,14 +25,16 @@ export default function Page() {
         <p className="text-[--color-dark-gray] font-light text-[24px] lg:text-[45px]">
           Previous Rulings
         </p>
-        {isMobile && (
+        {!isMobile && (
           <ViewDropdown
             options={['List', 'Grid']}
             handleSelectedOption={handleSelectedOption}
           />
         )}
       </div>
-      {isMobile && (
+      {isMobile ? (
+        <CelebrityCard />
+      ) : (
         <div className="max-w-[800px] lg:max-w-[1100px] mx-auto flex justify-center pt-5">
           {selectedOption === 'Grid' ? <CelebrityCard /> : <CelebrityList />}
         </div>
