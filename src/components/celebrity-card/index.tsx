@@ -1,10 +1,9 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { formatDistanceStrict } from 'date-fns/formatDistanceStrict'
 import Image from 'next/image'
 import ThumbsUp from '@components/thumbs-up'
 import ThumbsDown from '@components/thumbs-down'
 import VoteGauge from '@components/vote-gauge'
-import useDeviceSize from '@hooks/useDeviceSize'
 import { useCelebrities } from '@hooks/useCelebrities'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
