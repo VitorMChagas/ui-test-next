@@ -1,11 +1,11 @@
 'use client'
 
-import useDeviceSize from '@hooks/useDeviceSize'
+import useIsDesktop from '@hooks/useIsMobile'
 import { useState } from 'react'
 
 export default function SpeakOutBanner() {
   const [disable, setDisable] = useState(false)
-  const { isDesktop } = useDeviceSize()
+  const isDesktop = useIsDesktop()
 
   return (
     <aside

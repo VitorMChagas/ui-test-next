@@ -1,7 +1,7 @@
-import useDeviceSize from '@hooks/useDeviceSize'
+import useIsDesktop from '@hooks/useIsDesktop'
 
 export default function NavBar() {
-  const { isDesktop } = useDeviceSize()
+  const isDesktop = useIsDesktop()
 
   return (
     <div className="fixed z-20 min-h-[6rem] bg-gradient-to-b from-dark-nav pt-0 top-0 flex items-center justify-between w-full px-3 text-white md:pt-0 md:px-5 lg:mx-auto lg:px-[14%] lg:w-screen lg:min-w-[1100px]">

@@ -2,17 +2,19 @@ import ThumbButtons from '@components/header/thumb-buttons'
 import ClosingInBar from '@components/header/closing-in-bar'
 import Image from 'next/image'
 import NavBar from './navbar'
-import useDeviceSize from '@hooks/useDeviceSize'
+import useIsMobile from '@hooks/useIsMobile'
+import useIsDesktop from '@hooks/useIsDesktop'
 
 export default function Header() {
-  const { isDesktop, isTablet, isMobile } = useDeviceSize()
+  const isMobile = useIsMobile()
+  const isDesktop = useIsDesktop()
 
   return (
     <>
       <NavBar />
       <div className="relative pt-1 min-w-[375px] h-[418px] md:min-h-[460px] lg:min-h-[700px] ">
         <Image
-          src={`${isDesktop || isTablet ? '/img/pope-francis.@2x.png' : '/img/pope-francis.png'}`}
+          src={`${!isMobile ? '/img/pope-francis.@2x.png' : '/img/pope-francis.png'}`}
           alt="Pope Francis Photo"
           fill
           className="absolute"

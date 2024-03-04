@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { formatDistanceStrict } from 'date-fns/formatDistanceStrict'
 import Image from 'next/image'
 import ThumbsUp from '@components/thumbs-up'
@@ -9,6 +9,7 @@ import { useCelebrities } from '@hooks/useCelebrities'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/css'
+import useIsMobile from '@hooks/useIsMobile'
 
 interface HandleVoteType {
   id: number
@@ -20,7 +21,7 @@ export default function CelebrityCard() {
   const [hasVoted, setHasVoted] = useState<boolean>()
   const [voteType, setVoteType] = useState('')
   const { celebrities, setCelebrities } = useCelebrities()
-  const { isMobile, isTablet, isDesktop } = useDeviceSize()
+  const isMobile = useIsMobile()
 
   const celebrityHasBeenVoted = (id: number) => votedCelebrity === id
 
@@ -68,8 +69,8 @@ export default function CelebrityCard() {
 
   return (
     <>
-      <div className="flex flex-wrap w-[375px] pl-2 md:w-[640px] lg:w-[1100px]">
-        {!isMobile && (
+      {isMobile ? (
+        <div className="flex flex-wrap w-[375px] pl-2 md:w-[640px] lg:w-[1100px]">
           <Swiper slidesPerView={1} centeredSlides spaceBetween={-12}>
             {celebrities.map((celebrity) => (
               <SwiperSlide key={celebrity.id}>
@@ -148,12 +149,10 @@ export default function CelebrityCard() {
               </SwiperSlide>
             ))}
           </Swiper>
-        )}
-      </div>
-
-      <div className="grid grid-cols-2 min-w-[800px] justify-items-center w-full mx-auto relative lg:grid-cols-3 lg:min-w-[1100px]">
-        {(isDesktop || isTablet) &&
-          celebrities.map((celebrity) => (
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 min-w-[800px] justify-items-center w-full mx-auto relative lg:grid-cols-3 lg:min-w-[1100px]">
+          {celebrities.map((celebrity) => (
             <div className="w-[348px] h-[348px] text-white mb-10 flex flex-col justify-end">
               <Fragment key={celebrity.id}>
                 <Image
@@ -229,7 +228,8 @@ export default function CelebrityCard() {
               </Fragment>
             </div>
           ))}
-      </div>
+        </div>
+      )}
     </>
   )
 }

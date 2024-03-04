@@ -8,7 +8,7 @@ interface DropdownProps {
   handleSelectedOption: (option: string) => void
 }
 
-export default function Dropdown({
+export default function ViewDropdown({
   options,
   handleSelectedOption,
 }: DropdownProps) {
@@ -25,7 +25,7 @@ export default function Dropdown({
     <div className="relative z-10 inline-block">
       <button
         onClick={() => setOpen(!open)}
-        className="flex relative items-center justify-center px-4 py-2 w-[173px] text-sm font-medium text-gray-700 border-2 bg-white border-black hover:bg-gray-50"
+        className="flex l relative items-center justify-center px-4 py-2 w-[173px] text-sm font-medium text-gray-700 border-2 bg-white border-black hover:bg-gray-50"
       >
         {currentOption}
         <IoCaretDownSharp className="absolute right-4" />
