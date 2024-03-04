@@ -27,20 +27,6 @@ npm run dev
 
 This will start the development server, and you can access the application at [http://localhost:3000](http://localhost:3000).
 
-## Building for Production
-
-To build the project for production, use the following command:
-
-```bash
-npm run build
-```
-
-After building, you can start the production server with:
-
-```bash
-npm start
-```
-
 ## Linting
 
 To lint the project, use the following command:
